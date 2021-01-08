@@ -3,7 +3,7 @@ const Card = require('../models/cards.js');
 module.exports.findAllCards = (req, res) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
-    .catch((card) => res.status(500).send({ message: 'Произошла ошибка' }));
+    .catch(() => res.status(400).send({ message: 'Произошла ошибка' }));
 };
 
 module.exports.deleteCard = (req, res) => {
@@ -11,11 +11,12 @@ module.exports.deleteCard = (req, res) => {
     .then((card) => {
       if (!card) {
         res.status(404).json({ message: 'Такой карточки не существует' });
+        return;
       }
       res.status(200).send({ data: card });
     })
 
-    .catch((err) => res.status(500).send({ message: 'Произошла ошибка при поиске карточки' }));
+    .catch(() => res.status(400).send({ message: 'Произошла ошибка при поиске карточки' }));
 };
 
 module.exports.createCard = (req, res) => {
@@ -23,5 +24,5 @@ module.exports.createCard = (req, res) => {
 
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(200).send({ data: card }))
-    .catch((err) => res.status(500).send({ message: 'Произошла ошибка при создании карточки' }));
+    .catch(() => res.status(400).send({ message: 'Произошла ошибка при создании карточки' }));
 };
