@@ -18,5 +18,5 @@ v1.0.0
 Татьяна Лунькова 
 
 ### Запуск сервера:
-`npm run build` - production
+`npm run start` - production
 `npm run dev` - development
